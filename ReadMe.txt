@@ -1,81 +1,80 @@
 # Benchmarking and DRAMsim3 Simulation
-This README provides instructions for compiling and running benchmark programs, updating the `allcache.cpp` file, generating trace files, and simulating the traces using DRAMsim3.
+This guide provides instructions for compiling and running benchmark programs, updating the `allcache.cpp` file, generating trace files, and simulating those traces using DRAMsim3.
 
 ## Prerequisites
-Before you begin, make sure you have the following installed:
-- A C++ compiler (e.g., `g++` or `clang`)
-- Make utility
-- DRAMsim3 simulation environment
-- Required benchmark programs
+Ensure that the following software is installed before proceeding:
 
-## Instructions
+- A C++ compiler (e.g., `g++` or `clang`)
+- make utility
+- DRAMsim3 simulation environment
+- Benchmark programs
+
+## Steps
 
 ### 1. Compile and Run Benchmark Programs
 
 To compile and execute the benchmark programs, follow these steps:
 
 1. Navigate to the directory containing the benchmark programs.
-2. Compile each benchmark program using the following command:
+2. Compile each benchmark program:
     ```bash
     g++ -o benchmark_name benchmark_name.cpp
     ```
-    Replace `benchmark_name` with the actual name of the benchmark program file.
-3. Execute the compiled program:
+    Replace `benchmark_name` with the name of the benchmark program.
+3. Run the compiled program:
     ```bash
     ./benchmark_name
     ```
 
 ### 2. Update `allcache.cpp`
 
-You need to update the `allcache.cpp` file according to the `allcache_updated.cpp` file. Follow these steps:
-
 1. Open the `allcache.cpp` file in a text editor.
-2. Make changes based on the contents of `allcache_updated.cpp`.
+2. Apply the necessary updates by referring to `allcache_updated.cpp`.
 3. Save the changes.
 
-### 3. Compile `allcache_updated.cpp`
+### 3. Compile the Updated `allcache.cpp`
 
-Once you have updated the `allcache.cpp` file, compile the `allcache_updated.cpp` file using the Makefile:
+Once you've updated `allcache.cpp`, compile it using the provided `Makefile`:
 
 1. Run the following command:
     ```bash
     make allcache_updated.cpp
     ```
 
-### 4. Generate Trace Files for Benchmark Programs
+### 4. Generate Trace Files
 
-To generate the trace files from each benchmark program:
+To generate trace files from the benchmark programs:
 
-1. Run each benchmark program and redirect the output to a trace file:
+1. Run the benchmark program and redirect its output to a trace file:
     ```bash
     ./benchmark_name > benchmark_tracefile.txt
     ```
-    Do this for each benchmark program, ensuring you generate a corresponding trace file, e.g., `benchmark1_trace.txt`, `benchmark2_trace.txt`, etc.
+    Ensure that each benchmark program produces a unique trace file, such as `benchmark1_trace.txt`, `benchmark2_trace.txt`, etc.
 
-### 5. Find the Last Line of Trace Files
+### 5. Find the Last Line of the Trace Files
 
-Use the `last_line.c` program to extract the last line of each trace file and retrieve its timestamp.
+You can extract the last line of each trace file, which contains the timestamp, by using the `last_line.c` program.
 
-1. Compile the `last_line.c` program:
+1. Compile `last_line.c`:
     ```bash
     g++ -o last_line last_line.c
     ```
-2. Run the program to find the last line of a trace file:
+2. Run the program to print the last line of a trace file:
     ```bash
     ./last_line benchmark_tracefile.txt
     ```
-    This will print the last line of the trace file. Extract the timestamp from this line for the next step.
+    Make note of the timestamp from the output.
 
-### 6. Run DRAMsim3 Simulation
+### 6. Run DRAMsim3 Simulations
 
 To simulate the trace files using DRAMsim3:
 
-1. Run the following command, replacing `(last_line_timestamp)` with the timestamp obtained from step 5 and `(benchmark_tracefile)` with the corresponding trace file:
+1. Use the timestamp extracted from Step 5 and the respective trace file:
     ```bash
     ./build/dramsim3main configs/DDR4_8Gb_x8_3200.ini -c (last_line_timestamp) -t (benchmark_tracefile).txt
     ```
 
-Repeat this command for each benchmark trace file.
+Repeat the simulation for each trace file.
 
 ## Commands Summary
 
@@ -83,7 +82,7 @@ Repeat this command for each benchmark trace file.
 # Compile benchmark program
 g++ -o benchmark_name benchmark_name.cpp
 
-# Generate trace file
+# Run benchmark and generate trace file
 ./benchmark_name > benchmark_tracefile.txt
 
 # Compile last_line.c program
@@ -92,5 +91,5 @@ g++ -o last_line last_line.c
 # Extract the last line of the trace file
 ./last_line benchmark_tracefile.txt
 
-# Simulate using DRAMsim3
+# Simulate trace file using DRAMsim3
 ./build/dramsim3main configs/DDR4_8Gb_x8_3200.ini -c (last_line_timestamp) -t (benchmark_tracefile).txt
