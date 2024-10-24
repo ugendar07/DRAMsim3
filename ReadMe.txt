@@ -1,10 +1,7 @@
-
 # Benchmarking and DRAMsim3 Simulation
-
 This README provides instructions for compiling and running benchmark programs, updating the `allcache.cpp` file, generating trace files, and simulating the traces using DRAMsim3.
 
 ## Prerequisites
-
 Before you begin, make sure you have the following installed:
 - A C++ compiler (e.g., `g++` or `clang`)
 - Make utility
